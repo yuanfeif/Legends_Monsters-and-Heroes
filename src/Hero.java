@@ -7,7 +7,6 @@ import java.util.Scanner;
  * @Author Vincent Yuan
  */
 public class Hero extends GenericCharacter{
-
     private static final String SPLIT_LINE = Colors.setGroundColor(
             "----------------------------------------------------------------------------------",
             Colors.BLACK, Colors.PURPLE_BG) + "\n";

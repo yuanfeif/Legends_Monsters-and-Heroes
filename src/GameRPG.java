@@ -4,6 +4,7 @@
  * @Author Vincent Yuan
  */
 public abstract class GameRPG extends Game{
+
     public GameRPG() {}
 
     /**
