@@ -14,6 +14,10 @@ public abstract class Grid implements GridPrinter{
         this.grid = new Cell[size][size];
     }
 
+    public Grid(int height, int width) {
+        this.grid = new Cell[height][width];
+    }
+
     public Cell[][] getGrid() {
         return grid;
     }
@@ -42,6 +46,7 @@ public abstract class Grid implements GridPrinter{
      */
     public abstract void markAsHero(int row, int col);
 
+    public abstract void markAsHero(String name, int row, int col);
     /**
      * after a player leave the cell
      * the mark should be recovered
