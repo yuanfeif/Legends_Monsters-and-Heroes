@@ -48,4 +48,8 @@ public class Colors {
     public static String setGroundColor(String str, String fore, String back) {
         return "\033[" + fore + ";" + back + "m" + str + "\033[0m";
     }
+
+    public static String justSetGroundColor(String str, String back) {
+        return "\033[" + back + "m" + str + "\033[0m";
+    }
 }
