@@ -14,6 +14,8 @@ public class GridFactory {
         //create grid in Legends
         if ("LMH".equalsIgnoreCase(type)) {
             grid = new GridLMH(8);
+        } else if ("LV".equalsIgnoreCase(type)) {
+            grid = new GridLV(8, 16);
         }
         return grid;
     }

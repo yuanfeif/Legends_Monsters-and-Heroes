@@ -109,6 +109,11 @@ public class GridLMH extends Grid{
         getGrid()[row][col] = new CellHero();
     }
 
+    @Override
+    public void markAsHero(String name, int row, int col) {
+
+    }
+
     /**
      * after a player leave the cell
      * the mark should be recovered
