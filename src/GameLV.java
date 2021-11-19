@@ -41,7 +41,17 @@ public class GameLV extends GameRPG{
     private Market market;
 
     public GameLV(){
-
+        heroNum = 3;
+        team = new ArrayList<>();
+        teamBackUp = new ArrayList<>();
+        monsters = new ArrayList<>();
+        heroColHashMap = new HashMap<>();
+        heroRowHashMap = new HashMap<>();
+        monsterColHashMap = new HashMap<>();
+        monsterRowHashMap = new HashMap<>();
+        this.grid = GridFactory.createGrid("LV");
+        this.market = MarketFactory.createMarket("LMH");
+        market.initiateMarket();
     }
 
 
@@ -51,6 +61,9 @@ public class GameLV extends GameRPG{
 
         pickRoles();
         GamePrintUtil.printTeam(team);
+
+        createMonsters();
+        initializePosition();
 
         showGrid();
 
@@ -72,6 +85,9 @@ public class GameLV extends GameRPG{
             }
         }
     }
+
+
+
 
     @Override
     public void quit() {
@@ -145,6 +161,23 @@ public class GameLV extends GameRPG{
 
     }
 
+    private void initializePosition() {
+        int col = 0;
+        for (Hero hero : team) {
+            heroRowHashMap.put(hero,0);
+            heroColHashMap.put(hero,col);
+            col += 6;
+        }
+
+        col = 1;
+        for (Monster monster : monsters) {
+            monsterRowHashMap.put(monster,7);
+            monsterColHashMap.put(monster,col);
+            col += 6;
+        }
+
+    }
+
     public void stepInto(Hero hero){
         if (grid.getCellBefore() instanceof CellCommon) {
             for (Monster monster : monsters) {
@@ -158,6 +191,59 @@ public class GameLV extends GameRPG{
         //step into a market cell
         if (grid.getCellBefore() instanceof Cell) {
             enterMarket();
+        }
+    }
+
+    public void enterMarket(){
+        Scanner sc = new Scanner(System.in);
+        GamePrintUtil.printSystemNotification("Welcome to market! You can buy powerful props for your heroes!");
+
+        // buy or sell props for each hero
+        for (int i = 0; i < team.size(); i++) {
+            GamePrintUtil.printSystemNotification("What do you want to do for your heroes?");
+            System.out.println();
+            GamePrintUtil.printTeam(team);
+            GamePrintUtil.printSystemHint("1. Buy     2. Sell     3. Finish and Pass");
+
+            GamePrintUtil.printSystemInfo("For hero" + (i + 1));
+
+            //check if choice is valid
+            int choice;
+            while (true) {
+                if (sc.hasNextInt()) {
+                    choice = sc.nextInt();
+                    if (choice < 1 || choice > 3) {
+                        GamePrintUtil.printSystemNotification("Please input a valid number!(1-)" + market.getProps().size());
+                    } else {
+                        break;
+                    }
+                } else {
+                    // If input is not an INTEGER
+                    sc.next();
+                    GamePrintUtil.printSystemNotification("Please input a valid number!(1-)" + market.getProps().size());
+                }
+            }
+
+            // buy
+            if (choice == 1) {
+                market.printMarket();
+
+                if (team.get(i).buy(pickPropInMarket())) {
+                    team.get(i).getBag().printBag();
+                }
+                --i;
+            } //sell
+            else if (choice == 2) {
+                team.get(i).getBag().printBag();
+                team.get(i).sell(pickPropInBag(team.get(i)));
+                team.get(i).getBag().printBag();
+                --i;
+            } // pass
+            else {
+                if (i == heroNum - 1) {
+                    GamePrintUtil.printSystemNotification("Bye!");
+                }
+            }
         }
     }
 
@@ -241,7 +327,130 @@ public class GameLV extends GameRPG{
         }
     }
 
+    /**
+     * when player enters a common space, it is possible to meet monsters
+     * they need to fight with them
+     */
+    public void createMonsters() {
+        monsters = new ArrayList<>();
+        MonsterList.setMonsters();
+        Random seed = new Random();
+
+        for (int i = 0; i < team.size(); i++) {
+            int idx = seed.nextInt(MonsterList.getMonsters().size());
+            monsters.add(MonsterList.getMonsters().get(idx));
+        }
+    }
+
+
     public void showGrid(){
+        GamePrintUtil.printSystemInfo("Here is the grid of the world!");
+        GamePrintUtil.printSystemHint(" ☆ " + " is your birth place");
+        GamePrintUtil.printSystemHint(" \uD83D\uDEA9 " + " is your position");
+        GamePrintUtil.printSystemHint(" \uD83C\uDF3F " + " is common space");
+        GamePrintUtil.printSystemHint(" \uD83D\uDED2 " + " is market");
+        GamePrintUtil.printSystemHint(" ❌ " + " is inaccessible space");
+        grid.initiateGrid();
+        grid.printGrid();
 
     }
+
+    /**
+     * pick props in the market
+     * @return Prop
+     */
+    public Prop pickPropInMarket() {
+        Scanner sc = new Scanner(System.in);
+
+        // Input validation checking
+        while (true) {
+            GamePrintUtil.printSystemNotification("Please pick a prop you like!");
+            int propNum;
+
+            //check if number is valid
+            if (sc.hasNextInt()) {
+                propNum = sc.nextInt();
+
+                if (propNum < 1 || propNum > market.getProps().size()) {
+                    GamePrintUtil.printSystemNotification("Please input a valid prop number!(1-" + market.getProps().size() + ")");
+                } else {
+                    return market.getProps().get(propNum - 1);
+                }
+            } else {
+                sc.next();
+                GamePrintUtil.printSystemNotification("Please input a valid prop number!(1-" + market.getProps().size() + ")");
+            }
+        }
+    }
+
+    /**
+     * pick props out before selling them
+     * @param hero
+     * @return Prop
+     */
+    public Prop pickPropInBag(Hero hero) {
+        Scanner sc = new Scanner(System.in);
+        GamePrintUtil.printSystemNotification("Please choose a Prop type!");
+        GamePrintUtil.printSystemHint("W/w: Weapons");
+        GamePrintUtil.printSystemHint("A/a: Armors");
+        GamePrintUtil.printSystemHint("P/p: Potions");
+        GamePrintUtil.printSystemHint("S/s: Spells");
+        String type;
+        while (true) {
+            type = sc.nextLine();
+            //check if type is valid
+            if (!"W".equalsIgnoreCase(type) && !"A".equalsIgnoreCase(type) &&
+                    !"P".equalsIgnoreCase(type) && !"S".equalsIgnoreCase(type)) {
+                GamePrintUtil.printSystemNotification("Please input a valid action! (W/w, A/a, P/p, S/s)!");
+                continue;
+            }
+            //check if having specific prop
+            if (("W".equalsIgnoreCase(type) && hero.getBag().getWeapons().isEmpty()) ||
+                    ("A".equalsIgnoreCase(type) && hero.getBag().getArmors().isEmpty()) ||
+                    ("P".equalsIgnoreCase(type) && hero.getBag().getPotions().isEmpty()) ||
+                    ("S".equalsIgnoreCase(type) && hero.getBag().getSpells().isEmpty())) {
+                GamePrintUtil.printSystemNotification("You don't have this kind of prop!");
+                continue;
+            }
+
+            int choice;
+            GamePrintUtil.printSystemNotification("Please choose a Specific Prop!");
+
+            // check if the number is valid
+            while (true) {
+                if (sc.hasNextInt()) {
+                    choice = sc.nextInt();
+                    if ("W".equalsIgnoreCase(type)) {
+                        if (choice < 1 || choice > hero.getBag().getWeapons().size()) {
+                            GamePrintUtil.printSystemNotification("Please input a valid prop number!(1-" + hero.getBag().getWeapons().size() + ")");
+                        } else {
+                            return hero.getBag().getWeapons().get(choice - 1);
+                        }
+                    } else if ("A".equalsIgnoreCase(type)) {
+                        if (choice < 1 || choice > hero.getBag().getArmors().size()) {
+                            GamePrintUtil.printSystemNotification("Please input a valid prop number!(1-" + hero.getBag().getArmors().size() + ")");
+                        } else {
+                            return hero.getBag().getArmors().get(choice - 1);
+                        }
+                    } else if ("P".equalsIgnoreCase(type)) {
+                        if (choice < 1 || choice > hero.getBag().getPotions().size()) {
+                            GamePrintUtil.printSystemNotification("Please input a valid prop number!(1-" + hero.getBag().getPotions().size() + ")");
+                        } else {
+                            return hero.getBag().getPotions().get(choice - 1);
+                        }
+                    } else if ("S".equalsIgnoreCase(type)) {
+                        if (choice < 1 || choice > hero.getBag().getSpells().size()) {
+                            GamePrintUtil.printSystemNotification("Please input a valid prop number!(1-" + hero.getBag().getSpells().size() + ")");
+                        } else {
+                            return hero.getBag().getSpells().get(choice - 1);
+                        }
+                    }
+                } else {
+                    GamePrintUtil.printSystemNotification("Please input a valid prop number!");
+                }
+            }
+        }
+    }
+
+
 }
