@@ -33,6 +33,18 @@ public abstract class Grid implements GridPrinter{
     public abstract int getSize();
 
     /**
+     * get the height of the grid
+     * @return int
+     */
+    public abstract int getHeight();
+
+    /**
+     * get the width of the grid
+     * @return int
+     */
+    public abstract int getWidth();
+
+    /**
      * get the type of the cell before player passed
      * @return
      */
