@@ -112,6 +112,7 @@ public class GameLV extends GameRPG{
                 GamePrintUtil.printSystemNotification("Please input a valid action! (W/w, A/a, S/s, D/d, Q/q, I/i)!");
                 continue;
             }
+
             //check if position is out of boundary
             if (("A".equalsIgnoreCase(action) && (curCol - 1 < 0)) ||
                     ("D".equalsIgnoreCase(action) && (curCol + 1 >= size)) ||
@@ -145,9 +146,12 @@ public class GameLV extends GameRPG{
             curRow++;
         }
 
+        heroRowHashMap.put(hero,curRow);
+        heroColHashMap.put(hero,curCol);
+
         //after leaving a cell, need to recover the marker before
         grid.markAsHero(curRow, curCol);
-        System.out.println(Colors.setColor("You are now on a " + grid.getCellBefore().getMark(), Colors.WHITE));
+        //System.out.println(Colors.setColor("You are now on a " + grid.getCellBefore().getMark(), Colors.WHITE));
 
         if ("Q".equalsIgnoreCase(action)) {
             quit();
