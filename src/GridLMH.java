@@ -32,6 +32,16 @@ public class GridLMH extends Grid{
         return size;
     }
 
+    @Override
+    public int getHeight() {
+        return size;
+    }
+
+    @Override
+    public int getWidth() {
+        return size;
+    }
+
     public void setSize(int size) {
         this.size = size;
     }
