@@ -23,6 +23,7 @@ public class GridLV extends Grid{
         return 0;
     }
 
+    @Override
     public int getHeight() {
         return height;
     }
@@ -31,6 +32,7 @@ public class GridLV extends Grid{
         this.height = height;
     }
 
+    @Override
     public int getWidth() {
         return width;
     }
