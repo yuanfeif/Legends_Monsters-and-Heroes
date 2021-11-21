@@ -5,6 +5,6 @@
  */
 public class CellInaccessible extends Cell{
     public CellInaccessible() {
-        super(Colors.setColor(" ❌ ", Colors.RED));
+        super(Colors.setColor("  ", Colors.RED));
     }
 }

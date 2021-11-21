@@ -427,11 +427,11 @@ public class GameLV extends GameRPG{
 
     public void showGrid(){
         GamePrintUtil.printSystemInfo("Here is the grid of the world!");
-        GamePrintUtil.printSystemHint(" ☆ " + " is your birth place");
+        GamePrintUtil.printSystemHint("  " + " is your birth place");
         GamePrintUtil.printSystemHint(" \uD83D\uDEA9 " + " is your position");
         GamePrintUtil.printSystemHint(" \uD83C\uDF3F " + " is common space");
         GamePrintUtil.printSystemHint(" \uD83D\uDED2 " + " is market");
-        GamePrintUtil.printSystemHint(" ❌ " + " is inaccessible space");
+        GamePrintUtil.printSystemHint("  " + " is inaccessible space");
         grid.printGrid();
     }
 
