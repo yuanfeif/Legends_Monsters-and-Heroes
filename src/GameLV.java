@@ -7,21 +7,12 @@ import java.util.*;
  * @Date 2021/11/14 14:19
  */
 public class GameLV extends GameRPG{
-    /**
-     * number of a team
-     */
-    private int heroNum;
-
 
     private HashMap<Hero,Integer> heroRowHashMap;
     private HashMap<Hero,Integer> heroColHashMap;
     private HashMap<Monster,Integer> monsterRowHashMap;
     private HashMap<Monster,Integer> monsterColHashMap;
 
-    /**
-     * player's team
-     */
-    private ArrayList<Hero> team;
     /**
      * back up player's team for revive and increase ability of a hero
      */
@@ -240,7 +231,6 @@ public class GameLV extends GameRPG{
         initializePosition();
     }
 
-
     public void enterMarket(){
         Scanner sc = new Scanner(System.in);
         GamePrintUtil.printSystemNotification("Welcome to market! You can buy powerful props for your heroes!");
@@ -350,19 +340,6 @@ public class GameLV extends GameRPG{
         }
     }
 
-
-    @Override
-    public void playOrQuit() {
-        GamePrintUtil.printSystemNotification("Press 'Q/q' to quit, or any other key(s) to continue!");
-
-        Scanner sc = new Scanner(System.in);
-        String decision = sc.nextLine();
-        // Check if the player wants to start the game or quit
-        if ("Q".equalsIgnoreCase(decision)) {
-            GameHost.quit();
-        }
-    }
-
     @Override
     public void backgroundInfo() {
         String backInfo = "The heroes and monsters live in a world represented by a square grid of fixed dimensions. \n" +
@@ -375,38 +352,6 @@ public class GameLV extends GameRPG{
         System.out.println(Colors.setGroundColor(backInfo, Colors.BLACK, Colors.YELLOW_BG));
         playOrQuit();
         GamePrintUtil.printSystemNotification("                    GAME START                     ");
-    }
-
-    @Override
-    public void pickRoles() {
-        HeroList.printHeroList();
-
-        GamePrintUtil.printSystemNotification("Now you can form your own team!");
-        System.out.println();
-        GamePrintUtil.printSystemNotification("Input the number of your team(1-3): ");
-
-        // check if the number is valid
-        Scanner sc = new Scanner(System.in);
-
-        // check if the number of heroes is valid when choosing
-        for (int i = 0; i < heroNum; i++) {
-            GamePrintUtil.printSystemInfo("Choose Hero " + i + ": ");
-            int choice;
-            while (true) {
-                if (sc.hasNextInt()) {
-                    choice = sc.nextInt();
-                    if (choice < 1 || choice > HeroList.getHeroes().size()) {
-                        GamePrintUtil.printSystemNotification("Please input a valid number(1-" + HeroList.getHeroes().size() + ")!");
-                    } else {
-                        team.add(HeroList.getHeroes().get(choice - 1));
-                        break;
-                    }
-                } else {
-                    sc.next();
-                    GamePrintUtil.printSystemNotification("Please input a valid number(1-" + HeroList.getHeroes().size() + ")!");
-                }
-            }
-        }
     }
 
     /**

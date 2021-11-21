@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * @ClassName Game
  * @Description abstract class for all kinds of games
@@ -10,5 +12,14 @@ public abstract class Game {
     /**
      * check if players want to continue or not
      */
-    public abstract void playOrQuit();
+    public void playOrQuit() {
+        GamePrintUtil.printSystemNotification("Press 'Q/q' to quit, or any other key(s) to continue!");
+
+        Scanner sc = new Scanner(System.in);
+        String decision = sc.nextLine();
+        // Check if the player wants to start the game or quit
+        if ("Q".equalsIgnoreCase(decision)) {
+            GameHost.quit();
+        }
+    }
 }
