@@ -1,3 +1,4 @@
+import javax.print.attribute.standard.PrinterURI;
 import java.util.*;
 
 /**
@@ -115,9 +116,9 @@ public class GameLV extends GameRPG{
 
             //check if position is out of boundary
             if (("A".equalsIgnoreCase(action) && (curCol - 1 < 0)) ||
-                    ("D".equalsIgnoreCase(action) && (curCol + 1 >= size)) ||
+                    ("D".equalsIgnoreCase(action) && (curCol + 1 >= grid.getWidth())) ||
                     ("W".equalsIgnoreCase(action) && (curRow - 1 < 0)) ||
-                    ("S".equalsIgnoreCase(action) && (curRow + 1 >= size))) {
+                    ("S".equalsIgnoreCase(action) && (curRow + 1 >= grid.getHeight()))) {
 
                 // Valid input, but cannot go outside of the map
                 GamePrintUtil.printSystemNotification("Please move inside the grid!");
@@ -150,8 +151,8 @@ public class GameLV extends GameRPG{
         heroColHashMap.put(hero,curCol);
 
         //after leaving a cell, need to recover the marker before
-        grid.markAsHero(curRow, curCol);
-        //System.out.println(Colors.setColor("You are now on a " + grid.getCellBefore().getMark(), Colors.WHITE));
+        grid.markAsHero(hero.getName(), curRow, curCol);
+        System.out.println(Colors.setColor("You are now on a " + grid.getCellBefore().getMark(), Colors.WHITE));
 
         if ("Q".equalsIgnoreCase(action)) {
             quit();
@@ -170,6 +171,7 @@ public class GameLV extends GameRPG{
         for (Hero hero : team) {
             heroRowHashMap.put(hero,0);
             heroColHashMap.put(hero,col);
+            grid.markAsHero(hero.getName(), 0, col);
             col += 6;
         }
 
@@ -177,8 +179,11 @@ public class GameLV extends GameRPG{
         for (Monster monster : monsters) {
             monsterRowHashMap.put(monster,7);
             monsterColHashMap.put(monster,col);
+            grid.markAsHero(monster.getName(), 7, col);
             col += 6;
         }
+
+
 
     }
 
@@ -192,10 +197,23 @@ public class GameLV extends GameRPG{
             }
         }
 
-        //step into a market cell
-        if (grid.getCellBefore() instanceof Cell) {
+        //step into a hero nexus, market can be entered
+        if (grid.getCellBefore() instanceof CellHeroNexus) {
             enterMarket();
         }
+
+        //step into a monster nexus, hero team win, market can be entered
+        if (grid.getCellBefore() instanceof CellMonsterNexus) {
+            heroWin();
+            enterMarket();
+        }
+
+    }
+
+    private void heroWin() {
+        GamePrintUtil.printSystemNotification("Heroes win this round!"); // Add something here
+        createMonsters();
+        initializePosition();
     }
 
     public void enterMarket(){
