@@ -109,12 +109,6 @@ public class GameLV extends GameRPG{
     }
 
 
-
-    @Override
-    public void quit() {
-
-    }
-
     public void move(Hero hero){
         Scanner sc = new Scanner(System.in);
         String action;
@@ -176,7 +170,7 @@ public class GameLV extends GameRPG{
         System.out.println(Colors.setColor("You are now on a " + grid.getGrid()[curRow][curCol].getClass(), Colors.WHITE));
 
         if ("Q".equalsIgnoreCase(action)) {
-            quit();
+            GameHost.quit();
         }
         if ("I".equalsIgnoreCase(action)) {
             // Print relevant stats
@@ -365,24 +359,20 @@ public class GameLV extends GameRPG{
         String decision = sc.nextLine();
         // Check if the player wants to start the game or quit
         if ("Q".equalsIgnoreCase(decision)) {
-            quit();
+            GameHost.quit();
         }
     }
 
     @Override
     public void backgroundInfo() {
-        System.out.println(Colors.setColor("Welcome to Legends: Valor!", Colors.BLUE));
-//        String backInfo = "The heroes and monsters live in a world represented by a square grid of fixed dimensions. \n" +
-//                "This world has three types of places to be; \n" +
-//                "Common space (either a safe zone or where heroes come across monsters and fight), \n" +
-//                "Inaccessible (places the heroes can't go), \n" +
-//                "and Markets (where items are bought and sold). \n" +
-//                "The heroes and monsters do not get along and therefore fight each other. \n" +
-//                "Heroes can use weapons, armors, potions, and spells against the monsters. \n" +
-//                "Every time the heroes win, they gain some experience and some money. \n" +
-//                "When they accumulate enough experience they level up which means that their skills become stronger.  \n" +
-//                "The goal of the game is for the heroes to gain experience and level up indefinitely.\n";
-//        System.out.println(Colors.setGroundColor(backInfo, Colors.BLACK, Colors.YELLOW_BG));
+        String backInfo = "The heroes and monsters live in a world represented by a square grid of fixed dimensions. \n" +
+                "This world has different types of places to be; \n" +
+                "The heroes and monsters do not get along and therefore fight each other. \n" +
+                "Heroes can use weapons, armors, potions, and spells against the monsters. \n" +
+                "Every time the heroes win, they gain some experience and some money. \n" +
+                "When they accumulate enough experience they level up which means that their skills become stronger.  \n" +
+                "The goal of the game is for the heroes to get into monsters' nexus.\n";
+        System.out.println(Colors.setGroundColor(backInfo, Colors.BLACK, Colors.YELLOW_BG));
         playOrQuit();
         GamePrintUtil.printSystemNotification("                    GAME START                     ");
     }
@@ -443,7 +433,6 @@ public class GameLV extends GameRPG{
         GamePrintUtil.printSystemHint(" \uD83D\uDED2 " + " is market");
         GamePrintUtil.printSystemHint(" ❌ " + " is inaccessible space");
         grid.printGrid();
-
     }
 
     /**
@@ -541,6 +530,11 @@ public class GameLV extends GameRPG{
                 }
             }
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Legends: Valor";
     }
 
 

@@ -31,4 +31,11 @@ public class GameHost {
         System.exit(0);
     }
 
+    /**
+     * exit function
+     */
+    public static void quit() {
+        GamePrintUtil.printSystemNotification("Thank you for playing "+ game.toString()+ " !");
+        run();
+    }
 }

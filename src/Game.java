@@ -7,8 +7,6 @@
 public abstract class Game {
     public abstract void play();
 
-    public abstract void quit();
-
     /**
      * check if players want to continue or not
      */

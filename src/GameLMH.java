@@ -164,21 +164,12 @@ public class GameLMH extends GameRPG {
 
     }
 
-    /**
-     * exit function
-     */
-    @Override
-    public void quit() {
-        printSystemNotification("Thank you for playing the game! Have a nice day!");
-        System.exit(0);
-    }
 
     /**
      * print background information
      */
     @Override
     public void backgroundInfo() {
-        System.out.println(Colors.setColor("Welcome to Legends: Monsters and Heroes!", Colors.BLUE));
         String backInfo = "The heroes and monsters live in a world represented by a square grid of fixed dimensions. \n" +
                 "This world has three types of places to be; \n" +
                 "Common space (either a safe zone or where heroes come across monsters and fight), \n" +
@@ -203,7 +194,7 @@ public class GameLMH extends GameRPG {
 
         // Check if the player wants to start the game or quit
         if ("Q".equalsIgnoreCase(decision)) {
-            quit();
+            GameHost.quit();
         }
     }
 
@@ -376,7 +367,7 @@ public class GameLMH extends GameRPG {
         System.out.println(Colors.setColor("You are now on a " + grid.getCellBefore().getMark(), Colors.WHITE));
 
         if ("Q".equalsIgnoreCase(action)) {
-            quit();
+            GameHost.quit();
         }
         if ("I".equalsIgnoreCase(action)) {
             // Print relevant stats
@@ -650,7 +641,7 @@ public class GameLMH extends GameRPG {
 
             if (heroesAllFaint) {
                 printSystemNotification("All the heroes are dead...");
-                quit();
+                GameHost.quit();
             } else {
                 if (monstersAllDead) {
                     afterFight();
@@ -719,4 +710,10 @@ public class GameLMH extends GameRPG {
             }
         }
     }
+
+    @Override
+    public String toString(){
+        return "Legends: Monsters and Heroes";
+    }
+
 }
