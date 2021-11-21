@@ -183,8 +183,14 @@ public class GameLV extends GameRPG{
     }
 
     private void initializePosition() {
+        //Eliminate all the existing positions && Initialize the init position
         int col = 0;
         for (Hero hero : team) {
+            if(heroRowHashMap.containsKey(hero)){
+                int curRow = heroRowHashMap.get(hero);
+                int curCol = heroColHashMap.get(hero);
+                grid.getGrid()[curRow][curCol].setHeroOn(false);
+            }
             heroRowHashMap.put(hero,7);
             heroColHashMap.put(hero,col);
             grid.getGrid()[7][col].setHeroOn(true);
@@ -193,6 +199,12 @@ public class GameLV extends GameRPG{
 
         col = 1;
         for (Monster monster : monsters) {
+            if(monsterRowHashMap.containsKey(monster)){
+                int curRow = monsterRowHashMap.get(monster);
+                int curCol = monsterColHashMap.get(monster);
+                grid.getGrid()[curRow][curCol].setMonsterOn(false);
+
+            }
             monsterRowHashMap.put(monster,0);
             monsterColHashMap.put(monster,col);
             grid.getGrid()[0][col].setMonsterOn(true);
@@ -205,12 +217,10 @@ public class GameLV extends GameRPG{
     public void stepInto(Hero hero){
         int curRow = heroRowHashMap.get(hero);
         int curCol = heroColHashMap.get(hero);
-        if (grid.getGrid()[curRow][curCol] instanceof CellCommon) {
-            for (Monster monster : monsters) {
-                if(judgeNear(hero,monster)){
-                    fight(hero,monster);
-                    break;
-                }
+        for (Monster monster : monsters) {
+            if(judgeNear(hero,monster)){
+                fight(hero,monster);
+                break;
             }
         }
 
@@ -289,23 +299,53 @@ public class GameLV extends GameRPG{
     }
 
     private boolean judgeNear(Hero hero, Monster monster){
-        if(heroRowHashMap.get(hero) == monsterRowHashMap.get(monster)
-                && heroColHashMap.get(hero) > heroColHashMap.get(monster)
-                && heroColHashMap.get(hero) + 3 >=  monsterColHashMap.get(monster) ){
+        if(heroRowHashMap.get(hero) == monsterRowHashMap.get(monster)){
+            //If there is a wall between, not fight happen.
+            int heroCol = heroColHashMap.get(hero);
+            int monsterCol = monsterColHashMap.get(monster);
+            if(heroCol >= monsterCol){
+                int temp = heroCol;
+                heroCol = monsterCol;
+                monsterCol = temp;
+            }
+            for(int i = heroCol; i <= monsterCol;i++){
+                if(grid.getGrid()[heroRowHashMap.get(hero)][i] instanceof CellInaccessible){ return false; }
+            }
             return true;
         }
         return false;
     }
 
     public void fight(Hero hero, Monster monster){
+        Scanner sc = new Scanner(System.in);
+        String action;
+        while (true) {
+            GamePrintUtil.printSystemNotification("Hero " + hero.getName() + " Action");
+            GamePrintUtil.printSystemNotification("Please enter your battle action (aA/sS): ");
+            action = sc.nextLine();
 
+            //check if input is valid
+            if (!"A".equalsIgnoreCase(action) && !"S".equalsIgnoreCase(action) ) {
+                GamePrintUtil.printSystemNotification("Please input a valid action! (W/w, A/a, S/s, D/d, Q/q, I/i)!");
+                break;
+            }
+        }
+
+        if("A".equalsIgnoreCase(action)){
+            hero.normalAttack(monster);
+        }
+        else if("S".equalsIgnoreCase(action)){
+            hero.castSpell(monster);
+        }
+
+        monster.attack(hero);
     }
 
     public void monsterMove(Monster monster){
         int curRow = monsterRowHashMap.get(monster);
         int curCol = monsterColHashMap.get(monster);
-        grid.getGrid()[curRow][curCol].setMonsterOn(false);
         if(curRow < grid.getHeight() - 1){
+            grid.getGrid()[curRow][curCol].setMonsterOn(false);
             curRow++;
             grid.getGrid()[curRow][curCol].setMonsterOn(true);
             monsterRowHashMap.put(monster,curRow);
