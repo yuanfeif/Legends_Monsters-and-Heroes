@@ -9,5 +9,9 @@ public class Main {
         Grid grid = GridFactory.createGrid("LV");
         grid.initiateGrid();
         grid.printGrid();
+
+        //Start Game via a host
+        GameHost.run();
+
     }
 }

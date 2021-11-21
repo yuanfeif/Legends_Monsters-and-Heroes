@@ -338,7 +338,6 @@ public class GameLMH extends GameRPG {
                 printSystemNotification("Please input a valid action! (W/w, A/a, S/s, D/d, Q/q, I/i)!");
                 continue;
             }
-
             //check if position is out of boundary
             if (("A".equalsIgnoreCase(action) && (curCol - 1 < 0)) ||
                     ("D".equalsIgnoreCase(action) && (curCol + 1 >= size)) ||
