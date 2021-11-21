@@ -81,8 +81,10 @@ public class GameLV extends GameRPG{
 
             for (Monster monster : monsters) {
                 monsterMove(monster);
+                GamePrintUtil.printSystemNotification(monster.getName() + " move forward!");
                 if (makejudge()) break;
             }
+            grid.printGrid();
         }
     }
 
@@ -327,6 +329,8 @@ public class GameLV extends GameRPG{
             //check if input is valid
             if (!"A".equalsIgnoreCase(action) && !"S".equalsIgnoreCase(action) ) {
                 GamePrintUtil.printSystemNotification("Please input a valid action! (W/w, A/a, S/s, D/d, Q/q, I/i)!");
+            }
+            else {
                 break;
             }
         }
@@ -368,17 +372,17 @@ public class GameLV extends GameRPG{
     @Override
     public void backgroundInfo() {
         System.out.println(Colors.setColor("Welcome to Legends: Valor!", Colors.BLUE));
-        String backInfo = "The heroes and monsters live in a world represented by a square grid of fixed dimensions. \n" +
-                "This world has three types of places to be; \n" +
-                "Common space (either a safe zone or where heroes come across monsters and fight), \n" +
-                "Inaccessible (places the heroes can't go), \n" +
-                "and Markets (where items are bought and sold). \n" +
-                "The heroes and monsters do not get along and therefore fight each other. \n" +
-                "Heroes can use weapons, armors, potions, and spells against the monsters. \n" +
-                "Every time the heroes win, they gain some experience and some money. \n" +
-                "When they accumulate enough experience they level up which means that their skills become stronger.  \n" +
-                "The goal of the game is for the heroes to gain experience and level up indefinitely.\n";
-        System.out.println(Colors.setGroundColor(backInfo, Colors.BLACK, Colors.YELLOW_BG));
+//        String backInfo = "The heroes and monsters live in a world represented by a square grid of fixed dimensions. \n" +
+//                "This world has three types of places to be; \n" +
+//                "Common space (either a safe zone or where heroes come across monsters and fight), \n" +
+//                "Inaccessible (places the heroes can't go), \n" +
+//                "and Markets (where items are bought and sold). \n" +
+//                "The heroes and monsters do not get along and therefore fight each other. \n" +
+//                "Heroes can use weapons, armors, potions, and spells against the monsters. \n" +
+//                "Every time the heroes win, they gain some experience and some money. \n" +
+//                "When they accumulate enough experience they level up which means that their skills become stronger.  \n" +
+//                "The goal of the game is for the heroes to gain experience and level up indefinitely.\n";
+//        System.out.println(Colors.setGroundColor(backInfo, Colors.BLACK, Colors.YELLOW_BG));
         playOrQuit();
         GamePrintUtil.printSystemNotification("                    GAME START                     ");
     }
