@@ -111,7 +111,7 @@ public class GridLV extends Grid{
 
         System.out.println(Colors.setGroundColor(" Game Grid: ", Colors.BLACK, Colors.PURPLE_BG));
 
-        StringBuilder boundary = new StringBuilder("--------------------------------------");
+        StringBuilder boundary = new StringBuilder("----------------------------------------------------------------------------");
         for (Cell[] row : grid) {
             System.out.println(boundary);
             for (int i = 0; i < row.length; i++) {

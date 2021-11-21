@@ -1,4 +1,3 @@
-import javax.print.attribute.standard.PrinterURI;
 import java.util.*;
 
 /**
@@ -53,6 +52,7 @@ public class GameLV extends GameRPG{
         this.grid = GridFactory.createGrid("LV");
         this.market = MarketFactory.createMarket("LMH");
         market.initiateMarket();
+        grid.initiateGrid();
     }
 
 
@@ -69,24 +69,42 @@ public class GameLV extends GameRPG{
         showGrid();
 
         while (true) {
+            boolean roundEndFlag = false;
             for (Hero hero : team) {
-                boolean canMove = move(hero);
+                move(hero);
                 grid.printGrid();
-
-                if (canMove) {
-                    stepInto(hero);
-                    grid.printGrid();
-                }
-
-                grid.recoverCell(heroRowHashMap.get(hero), heroColHashMap.get(hero));
+                stepInto(hero);
+                if (makejudge()) roundEndFlag = true;
+                grid.printGrid();
             }
+            if(roundEndFlag) continue;
 
             for (Monster monster : monsters) {
                 monsterMove(monster);
+                if (makejudge()) break;
             }
         }
     }
 
+    private boolean makejudge() {
+        for (Hero hero : team) {
+            int curRow = heroRowHashMap.get(hero);
+            int curCol = heroColHashMap.get(hero);
+            if(grid.getGrid()[curRow][curCol] instanceof CellMonsterNexus){
+                heroWin();
+                return true;
+            }
+        }
+        for (Monster monster : monsters) {
+            int curRow = monsterRowHashMap.get(monster);
+            int curCol = monsterColHashMap.get(monster);
+            if(grid.getGrid()[curRow][curCol] instanceof CellHeroNexus){
+                monsterWin();
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 
@@ -95,14 +113,14 @@ public class GameLV extends GameRPG{
 
     }
 
-    public boolean move(Hero hero){
+    public void move(Hero hero){
         Scanner sc = new Scanner(System.in);
         String action;
-        int size = grid.getSize();
         int curCol = heroColHashMap.get(hero);
         int curRow = heroRowHashMap.get(hero);
 
         while (true) {
+            GamePrintUtil.printSystemNotification("Hero " + hero.getName()+ " Action");
             GamePrintUtil.printSystemNotification("Please enter your action (wW/aA/sS/dD/qQ/iI): ");
             action = sc.nextLine();
 
@@ -136,6 +154,7 @@ public class GameLV extends GameRPG{
             }
         }
 
+        grid.getGrid()[curRow][curCol].setHeroOn(false);
         //move
         if ("A".equalsIgnoreCase(action)) {
             curCol--;
@@ -151,8 +170,8 @@ public class GameLV extends GameRPG{
         heroColHashMap.put(hero,curCol);
 
         //after leaving a cell, need to recover the marker before
-        grid.markAsHero(hero.getName(), curRow, curCol);
-        System.out.println(Colors.setColor("You are now on a " + grid.getCellBefore().getMark(), Colors.WHITE));
+        grid.getGrid()[curRow][curCol].setHeroOn(true);
+        System.out.println(Colors.setColor("You are now on a " + grid.getGrid()[curRow][curCol].getClass(), Colors.WHITE));
 
         if ("Q".equalsIgnoreCase(action)) {
             quit();
@@ -160,35 +179,33 @@ public class GameLV extends GameRPG{
         if ("I".equalsIgnoreCase(action)) {
             // Print relevant stats
             GamePrintUtil.printTeam(team);
-            return false;
         }
-        return true;
-
     }
 
     private void initializePosition() {
         int col = 0;
         for (Hero hero : team) {
-            heroRowHashMap.put(hero,0);
+            heroRowHashMap.put(hero,7);
             heroColHashMap.put(hero,col);
-            grid.markAsHero(hero.getName(), 0, col);
+            grid.getGrid()[7][col].setHeroOn(true);
             col += 6;
         }
 
         col = 1;
         for (Monster monster : monsters) {
-            monsterRowHashMap.put(monster,7);
+            monsterRowHashMap.put(monster,0);
             monsterColHashMap.put(monster,col);
-            grid.markAsHero(monster.getName(), 7, col);
+            grid.getGrid()[0][col].setMonsterOn(true);
             col += 6;
         }
-
 
 
     }
 
     public void stepInto(Hero hero){
-        if (grid.getCellBefore() instanceof CellCommon) {
+        int curRow = heroRowHashMap.get(hero);
+        int curCol = heroColHashMap.get(hero);
+        if (grid.getGrid()[curRow][curCol] instanceof CellCommon) {
             for (Monster monster : monsters) {
                 if(judgeNear(hero,monster)){
                     fight(hero,monster);
@@ -198,15 +215,10 @@ public class GameLV extends GameRPG{
         }
 
         //step into a hero nexus, market can be entered
-        if (grid.getCellBefore() instanceof CellHeroNexus) {
+        if (grid.getGrid()[curRow][curCol] instanceof CellHeroNexus || grid.getGrid()[curRow][curCol] instanceof CellMonsterNexus) {
             enterMarket();
         }
 
-        //step into a monster nexus, hero team win, market can be entered
-        if (grid.getCellBefore() instanceof CellMonsterNexus) {
-            heroWin();
-            enterMarket();
-        }
 
     }
 
@@ -215,6 +227,13 @@ public class GameLV extends GameRPG{
         createMonsters();
         initializePosition();
     }
+
+    private void monsterWin() {
+        GamePrintUtil.printSystemNotification("Monsters win this round!"); // Add something here
+        createMonsters();
+        initializePosition();
+    }
+
 
     public void enterMarket(){
         Scanner sc = new Scanner(System.in);
@@ -283,8 +302,16 @@ public class GameLV extends GameRPG{
     }
 
     public void monsterMove(Monster monster){
-
+        int curRow = monsterRowHashMap.get(monster);
+        int curCol = monsterColHashMap.get(monster);
+        grid.getGrid()[curRow][curCol].setMonsterOn(false);
+        if(curRow < grid.getHeight() - 1){
+            curRow++;
+            grid.getGrid()[curRow][curCol].setMonsterOn(true);
+            monsterRowHashMap.put(monster,curRow);
+        }
     }
+
 
     @Override
     public void playOrQuit() {
@@ -292,7 +319,6 @@ public class GameLV extends GameRPG{
 
         Scanner sc = new Scanner(System.in);
         String decision = sc.nextLine();
-
         // Check if the player wants to start the game or quit
         if ("Q".equalsIgnoreCase(decision)) {
             quit();
@@ -372,7 +398,6 @@ public class GameLV extends GameRPG{
         GamePrintUtil.printSystemHint(" \uD83C\uDF3F " + " is common space");
         GamePrintUtil.printSystemHint(" \uD83D\uDED2 " + " is market");
         GamePrintUtil.printSystemHint(" ❌ " + " is inaccessible space");
-        grid.initiateGrid();
         grid.printGrid();
 
     }
