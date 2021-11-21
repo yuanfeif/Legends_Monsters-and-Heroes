@@ -6,8 +6,7 @@ import java.util.List;
  * @Description potions in Legends
  * @Author Vincent Yuan
  */
-public class Potion extends Prop implements StrategyParsing{
-
+public class Potion extends Prop implements StrategyParsing, isUsable{
     /**
      * specific ability will be affected
      * use string to represent
@@ -24,14 +23,14 @@ public class Potion extends Prop implements StrategyParsing{
         this.attrIncreased = attrIncreased;
     }
 
-    public String getAttrAffected() {
-        return attrAffected;
-    }
+    @Override
+    public String getAttrAffected() {return attrAffected;}
 
     public void setAttrAffected(String attrAffected) {
         this.attrAffected = attrAffected;
     }
 
+    @Override
     public int getAttrIncreased() {
         return attrIncreased;
     }

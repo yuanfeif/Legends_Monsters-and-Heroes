@@ -6,7 +6,7 @@ import java.util.List;
  * @Description spells in Legends
  * @Author Vincent Yuan
  */
-public class Spell extends Prop implements StrategyParsing{
+public class Spell extends Prop implements StrategyParsing, isCastable{
 
     private int damage;
     /**
@@ -22,6 +22,7 @@ public class Spell extends Prop implements StrategyParsing{
         this.requiredMana = requiredMana;
     }
 
+    @Override
     public int getDamage() {
         return damage;
     }
