@@ -14,6 +14,7 @@ public class GameHost{
     }
 
     public static void welcome(){
+        System.out.println(GamePrintUtil.DRAGON);
         //Choose the game.
         while (true){
             System.out.println("\u001B[31mGame Hoster:" + "\u001B[37m Please input a number to start ot exit:");
