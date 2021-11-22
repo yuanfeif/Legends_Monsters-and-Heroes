@@ -185,7 +185,7 @@ Notes:
    * Use design patterns
      * simple factory pattern (class MarketFactory and GridFactory) 
      * strategy pattern (class StrategyParsing and Strategy LevelUp)
-   * Input is getting parsed from the input files and is not harcoded
+   * Input is getting parsed from the input files and is not hardcoded
    * There is usage of other extra graphics
    * We add background sound to this game
 
