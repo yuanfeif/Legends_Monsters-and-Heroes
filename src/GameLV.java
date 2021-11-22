@@ -207,6 +207,13 @@ public class GameLV extends GameRPG{
         for (Monster monster : monsters) {
             if(judgeNear(hero,monster)){
                 fight(hero,monster);
+                //If a hero is in the same row, he will telePort to help and then back!
+                for (Hero heroHelper : team) {
+                    if(heroRowHashMap.get(hero) ==  heroRowHashMap.get(heroHelper)){
+                        telePort(hero,heroHelper,monster);
+                        break;
+                    }
+                }
                 break;
             }
         }
@@ -479,6 +486,11 @@ public class GameLV extends GameRPG{
     @Override
     public String toString(){
         return "Legends: Valor";
+    }
+
+    public void telePort(Hero heroNeedHelp, Hero helper, Monster monster){
+        GamePrintUtil.printSystemNotification(helper.getName() + " helps you - " + heroNeedHelp.getName());
+        fight(helper,monster);
     }
 
 
