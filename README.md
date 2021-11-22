@@ -11,13 +11,14 @@ Team information
 
 !!How to run!!:
 -------------------------------------------------------------------------------------------------
-> In order to make the game fancy and colorful, we use some unicode when drawing the grid. So you may run the project in IDEA to see the results
+> In order to make the game fancy and colorful, we use some unicode when drawing the grid. So you may run the project in IDEA to see the results.
+> 
 > We tested this project in IDEA with JDK 1.8 and file encodeing UTF-8 on a Windows-based machine.
 
 1. Open this project in IntelliJ IDEA
 2. Click the "Run" button in Main class to run the project
 3. Make sure you have a JDK installed in your PC with version at least 1.8
-4. If you have problems with running this project, please feel free to contact me.
+4. If you have problems with running this project, please feel free to contact Feifan Yuan to have a face-to-face presentation.
 
 Files
 -------------------------------------------------------------------------------------------------
