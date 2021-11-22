@@ -20,7 +20,7 @@ public class GameHost{
             System.out.println("             1.Start Legends: Monsters and Heroes");
             System.out.println("             2.Start Legends: Valor");
             System.out.println("             3.Exit");
-            int i = UserInputUtil.getIntInput(1,2);
+            int i = UserInputUtil.getIntInput(1,3);
             if (i == 1) { game = new GameLMH();break; }
             if (i == 2) { game = new GameLV();break; }
             else if( i == 3) { exitHost();break; }
