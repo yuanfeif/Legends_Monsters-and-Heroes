@@ -6,7 +6,7 @@ import java.util.List;
  * @Description weapons in Legends
  * @Author Vincent Yuan
  */
-public class Weapon extends Prop implements StrategyParsing{
+public class Weapon extends Prop implements StrategyParsing, isAttackable{
 
     private int baseDamage;
     private int requiredHands;
@@ -19,6 +19,7 @@ public class Weapon extends Prop implements StrategyParsing{
         this.requiredHands = requiredHands;
     }
 
+    @Override
     public int getBaseDamage() {
         return baseDamage;
     }
