@@ -1,17 +1,32 @@
+import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
 /**
  * Host the game. Interact with the player(s) and the specific game.
  * It is extendable to have more games to choose.
  */
-public class GameHost {
+public class GameHost{
     private static Game game;
 
     public static void run(){
+//        JFXPanel fxPanel = new JFXPanel();
+        PlayMusic p=new PlayMusic();
+        p.play();
         welcome();
         game.play();
         exitHost();
     }
 
     public static void welcome(){
+//        launch();
         //Choose the game.
         while (true){
             System.out.println("\u001B[31mGame Hoster:" + "\u001B[37m Please input a number to start ot exit:");
