@@ -13,10 +13,6 @@ public class GameLMH extends GameRPG {
             Colors.BLACK, Colors.PURPLE_BG) + "\n";
 
     /**
-     * number of a team
-     */
-    private int heroNum;
-    /**
      * current row of a player
      */
     private int curRow;
@@ -25,10 +21,7 @@ public class GameLMH extends GameRPG {
      */
     private int curCol;
 
-    /**
-     * player's team
-     */
-    private ArrayList<Hero> team;
+
     /**
      * back up player's team for revive and increase ability of a hero
      */
@@ -147,7 +140,7 @@ public class GameLMH extends GameRPG {
 
         pickRoles();
         backUpTeam();
-        printTeam();
+        GamePrintUtil.printTeam(team);
 
         showGrid();
 
@@ -183,107 +176,6 @@ public class GameLMH extends GameRPG {
         System.out.println(Colors.setGroundColor(backInfo, Colors.BLACK, Colors.YELLOW_BG));
         playOrQuit();
         printSystemNotification("                    GAME START                     ");
-    }
-
-    @Override
-    public void playOrQuit() {
-        printSystemNotification("Press 'Q/q' to quit, or any other key(s) to continue!");
-
-        Scanner sc = new Scanner(System.in);
-        String decision = sc.nextLine();
-
-        // Check if the player wants to start the game or quit
-        if ("Q".equalsIgnoreCase(decision)) {
-            GameHost.quit();
-        }
-    }
-
-    /**
-     * player picks roles to form a team
-     */
-    @Override
-    public void pickRoles() {
-        HeroList.printHeroList();
-
-        printSystemNotification("Now you can form your own team!");
-        System.out.println();
-        printSystemNotification("Input the number of your team(1-3): ");
-
-        // check if the number is valid
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            if (sc.hasNextInt()) {
-                heroNum = sc.nextInt();
-                if (heroNum < 1 || heroNum > 3) {
-                    printSystemNotification("Please input a valid number(1-3)!");
-                } else {
-                    break;
-                }
-            } else {
-                sc.next();
-                printSystemNotification("Please input a valid number(1-3)!");
-            }
-        }
-
-        // check if the number of heroes is valid when choosing
-        for (int i = 0; i < heroNum; i++) {
-            printSystemInfo("Choose Hero " + i + ": ");
-            int choice;
-            while (true) {
-                if (sc.hasNextInt()) {
-                    choice = sc.nextInt();
-                    if (choice < 1 || choice > HeroList.getHeroes().size()) {
-                        printSystemNotification("Please input a valid number(1-" + HeroList.getHeroes().size() + ")!");
-                    } else {
-                        team.add(HeroList.getHeroes().get(choice - 1));
-                        break;
-                    }
-                } else {
-                    sc.next();
-                    printSystemNotification("Please input a valid number(1-" + HeroList.getHeroes().size() + ")!");
-                }
-            }
-        }
-    }
-
-    /**
-     * print the whole team and all the information of each hero
-     */
-    public void printTeam() {
-        String name;
-        double hp, strength, dexterity, agility, money, mana;
-        int level, exp;
-
-        System.out.println();
-        System.out.println(Colors.setColor("Here is your team!", Colors.BLUE));
-
-        String title = "Name                       HP    Level    Mana    Strength    Dexterity    Agility    Money    Exp";
-        System.out.println(title);
-        System.out.print(SPLIT_LINE);
-        System.out.printf("%-25s %-8.0f %-6d %-9.0f %-12.0f %-11.0f %-9.0f %-8.0f %-5d", 1 + ". " + team.get(0).getName(), team.get(0).getHp(), team.get(0).getLevel(), team.get(0).getMana(), team.get(0).getStrength(),
-                team.get(0).getDexterity(), team.get(0).getAgility(), team.get(0).getBag().getMoney(), team.get(0).getExp());
-        System.out.println();
-        for (int i = 1; i < team.size(); ++i) {
-            name = (i + 1) + ". " + team.get(i).getName();
-            hp = team.get(i).getHp();
-            level = team.get(i).getLevel();
-            mana = team.get(i).getMana();
-            strength = team.get(i).getStrength();
-            dexterity = team.get(i).getDexterity();
-            agility = team.get(i).getAgility();
-            money = team.get(i).getBag().getMoney();
-            exp = team.get(i).getExp();
-
-            System.out.printf("%-25s %-8.0f %-6d %-9.0f %-12.0f %-11.0f %-9.0f %-8.0f %-5d", name, hp, level, mana, strength,
-                    dexterity, agility, money, exp);
-            System.out.println();
-
-            if ((i + 1 < team.size()) && (!team.get(i).getClass().getName().equals
-                    (team.get(i + 1).getClass().getName()))) {
-                System.out.println(SPLIT_LINE);
-            }
-        }
-        System.out.println(SPLIT_LINE);
     }
 
     /**
@@ -371,7 +263,7 @@ public class GameLMH extends GameRPG {
         }
         if ("I".equalsIgnoreCase(action)) {
             // Print relevant stats
-            printTeam();
+            GamePrintUtil.printTeam(team);
             return false;
         }
         return true;
@@ -409,7 +301,7 @@ public class GameLMH extends GameRPG {
         for (int i = 0; i < team.size(); i++) {
             printSystemNotification("What do you want to do for your heroes?");
             System.out.println();
-            printTeam();
+            GamePrintUtil.printTeam(team);
             printSystemHint("1. Buy     2. Sell     3. Finish and Pass");
 
             printSystemInfo("For hero" + (i + 1));
@@ -603,7 +495,7 @@ public class GameLMH extends GameRPG {
             // heroes and monsters are one on one until one of them is dead
             for (hIdx = 0, mIdx = 0; hIdx < team.size() && mIdx < monsters.size(); ++hIdx) {
                 // print information
-                printTeam();
+                GamePrintUtil.printTeam(team);
                 printMonsters();
 
                 printSystemNotification(team.get(hIdx).getName() + " VS " + monsters.get(mIdx).getName());

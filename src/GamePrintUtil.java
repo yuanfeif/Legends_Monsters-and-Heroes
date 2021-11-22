@@ -4,7 +4,9 @@ public class GamePrintUtil {
     private static final String SPLIT_LINE = Colors.setGroundColor(
             "---------------------------------------------------------------------------------------------------------",
             Colors.BLACK, Colors.PURPLE_BG) + "\n";
-
+    /**
+     * print the whole team and all the information of each hero
+     */
     public static void printTeam(ArrayList<Hero> team) {
         String name;
         double hp, strength, dexterity, agility, money, mana;
@@ -57,4 +59,5 @@ public class GamePrintUtil {
     public static void printSystemHint(String str) {
         System.out.println(Colors.setColor(str, Colors.WHITE));
     }
+
 }
