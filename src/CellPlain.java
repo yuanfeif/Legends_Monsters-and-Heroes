@@ -6,6 +6,6 @@
  */
 public class CellPlain extends Cell{
     public CellPlain() {
-        super("   ");
+        super("    ");
     }
 }

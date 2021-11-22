@@ -6,6 +6,6 @@
  */
 public class CellMonsterNexus extends Cell{
     public CellMonsterNexus() {
-        super(Colors.justSetGroundColor("   ", Colors.BLUE_BG));
+        super(Colors.justSetGroundColor("    ", Colors.BLUE_BG));
     }
 }
