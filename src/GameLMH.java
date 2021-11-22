@@ -158,6 +158,13 @@ public class GameLMH extends GameRPG {
     }
 
 
+    @Override
+    public void pickRoles(){
+        GamePrintUtil.printSystemNotification("Input the heroes number (1-3):");
+        heroNum = UserInputUtil.getIntInput(1,3);
+        super.pickRoles();
+    }
+
     /**
      * print background information
      */

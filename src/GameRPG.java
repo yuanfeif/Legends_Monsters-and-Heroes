@@ -31,10 +31,6 @@ public abstract class GameRPG extends Game{
         HeroList.printHeroList();
 
         GamePrintUtil.printSystemNotification("Now you can form your own team!");
-        System.out.println();
-        GamePrintUtil.printSystemNotification("Input the number of your team(1-3): ");
-
-        // check if the number is valid
         Scanner sc = new Scanner(System.in);
 
         // check if the number of heroes is valid when choosing
