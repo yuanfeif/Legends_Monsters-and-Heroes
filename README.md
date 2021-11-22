@@ -181,12 +181,18 @@ Notes:
 -------------------------------------------------------------------------------------------------
 
 1. Bonus
-   * realize colorful console and use some icons to make the grid more user friendly.
-   * use design patterns
+   * Realize colorful console and use some icons to make the grid more user friendly.
+   * Use design patterns
      * simple factory pattern (class MarketFactory and GridFactory) 
      * strategy pattern (class StrategyParsing and Strategy LevelUp)
+   * Input is getting parsed from the input files and is not harcoded
+   * There is usage of other extra graphics
+   * We add background sound to this game
 
 2. Things to note
+
+   In the Legends of Monsters and Heroes
+   
    * hp of heroes = level * 1000 (It is easy for a hero to be fainted in only 1 turn because of high damage of a monster)
    * dodge_chance of heroes = 0.001 * agility (controlled between 0.0-1.0 which is same as monsters)
    * If all the heroes are fainted, the game will automatically end.
