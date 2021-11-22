@@ -191,11 +191,11 @@ public class GameLMH extends GameRPG {
      */
     public void showGrid() {
         printSystemInfo("Here is the grid of the world!");
-        printSystemHint("  " + " is your birth place");
+        printSystemHint(" \uD83C\uDFE0 " + " is your birth place");
         printSystemHint(" \uD83D\uDEA9 " + " is your position");
         printSystemHint(" \uD83C\uDF3F " + " is common space");
         printSystemHint(" \uD83D\uDED2 " + " is market");
-        printSystemHint("  " + " is inaccessible space");
+        printSystemHint(" \uD83D\uDEAB " + " is inaccessible space");
         grid.initiateGrid();
         grid.printGrid();
     }
