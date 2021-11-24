@@ -309,7 +309,7 @@ public class GameLMH extends GameRPG {
             printSystemNotification("What do you want to do for your heroes?");
             System.out.println();
             GamePrintUtil.printTeam(team);
-            printSystemHint("1. Buy     2. Sell     3. Finish and Pass");
+            printSystemHint("1. Buy     2. Sell     3. Finish and Pass    4. Quit");
 
             printSystemInfo("For hero" + (i + 1));
 
@@ -318,7 +318,7 @@ public class GameLMH extends GameRPG {
             while (true) {
                 if (sc.hasNextInt()) {
                     choice = sc.nextInt();
-                    if (choice < 1 || choice > 3) {
+                    if (choice < 1 || choice > 4) {
                         printSystemNotification("Please input a valid number!(1-)" + market.getProps().size());
                     } else {
                         break;
@@ -345,7 +345,9 @@ public class GameLMH extends GameRPG {
                 team.get(i).getBag().printBag();
                 --i;
             } // pass
-            else {
+            else if (choice == 3) {
+                break;
+            } else { // quit
                 if (i == heroNum - 1) {
                     printSystemNotification("Bye!");
                 }
