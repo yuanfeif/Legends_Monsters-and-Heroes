@@ -380,9 +380,9 @@ public class GameLV extends GameRPG{
         GamePrintUtil.printSystemInfo("Here is the grid of the world!");
         GamePrintUtil.printSystemHint(Colors.justSetGroundColor("   ", Colors.RED_BG) + " is Heroes' Nexus");
         GamePrintUtil.printSystemHint(Colors.justSetGroundColor("   ", Colors.BLUE_BG) + " is Monsters' Nexus");
-        GamePrintUtil.printSystemHint(" \uD83C\uDF33 " + " is a bush cell");
-        GamePrintUtil.printSystemHint(" \uD83D\uDD73 " + " is a cave cell");
-        GamePrintUtil.printSystemHint(" \uD83D\uDEAB " + " is inaccessible space");
+        GamePrintUtil.printSystemHint(" B " + " is a bush cell");
+        GamePrintUtil.printSystemHint(" C " + " is a cave cell");
+        GamePrintUtil.printSystemHint(" x " + " is inaccessible space");
         grid.printGrid();
     }
 

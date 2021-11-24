@@ -6,6 +6,6 @@
  */
 public class CellMonster extends Cell{
     public CellMonster(String mark) {
-        super(mark);
+        super(mark + " ");
     }
 }

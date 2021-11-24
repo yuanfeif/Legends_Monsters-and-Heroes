@@ -5,6 +5,6 @@
  */
 public class CellCommon extends Cell{
     public CellCommon() {
-        super(Colors.setColor(" \uD83C\uDF3F ", Colors.GREEN));
+        super(Colors.setColor("   ", Colors.GREEN));
     }
 }

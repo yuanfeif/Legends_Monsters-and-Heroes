@@ -10,6 +10,6 @@ public class CellHero extends Cell{
     }
 
     public CellHero(String name) {
-        super(name);
+        super(name + " ");
     }
 }

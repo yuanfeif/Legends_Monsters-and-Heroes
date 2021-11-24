@@ -6,6 +6,6 @@
  */
 public class CellCave extends Cell{
     public CellCave() {
-        super(Colors.setColor(" \uD83D\uDD73 ", Colors.BLACK));
+        super(Colors.setColor(" C ", Colors.BLACK));
     }
 }

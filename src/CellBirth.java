@@ -7,6 +7,6 @@
 public class CellBirth extends Cell{
 
     public CellBirth() {
-        super(Colors.setColor(" \uD83C\uDFE0 ", Colors.RED));
+        super(Colors.setColor(" B ", Colors.RED));
     }
 }
