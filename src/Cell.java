@@ -19,10 +19,10 @@ public class Cell {
 
     public String getMark() {
         if (isHeroOn) {
-            return " H ";
+            return Colors.setColor(" H ", Colors.RED);
         }
         if (isMonsterOn) {
-            return " M ";
+            return Colors.setColor(" M ", Colors.BLUE);
         }
         return mark;
     }
