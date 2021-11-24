@@ -247,7 +247,7 @@ public class GameLV extends GameRPG{
             GamePrintUtil.printSystemNotification("What do you want to do for your heroes?");
             System.out.println();
             GamePrintUtil.printTeam(team);
-            GamePrintUtil.printSystemHint("1. Buy     2. Sell     3. Finish and Pass");
+            GamePrintUtil.printSystemHint("1. Buy     2. Sell     3. Finish and Pass  4.Quit");
 
             GamePrintUtil.printSystemInfo("For hero" + (i + 1));
 
@@ -256,7 +256,7 @@ public class GameLV extends GameRPG{
             while (true) {
                 if (sc.hasNextInt()) {
                     choice = sc.nextInt();
-                    if (choice < 1 || choice > 3) {
+                    if (choice < 1 || choice > 4) {
                         GamePrintUtil.printSystemNotification("Please input a valid number!(1-)" + market.getProps().size());
                     } else {
                         break;
@@ -284,6 +284,7 @@ public class GameLV extends GameRPG{
                 --i;
             } // pass
             else {
+                GamePrintUtil.printSystemNotification("Bye!");
                 if (i == heroNum - 1) {
                     GamePrintUtil.printSystemNotification("Bye!");
                 }
