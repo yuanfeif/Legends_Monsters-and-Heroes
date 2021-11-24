@@ -6,7 +6,7 @@
 public class CellHero extends Cell{
 
     public CellHero() {
-        super(Colors.setColor(" \uD83D\uDEA9 ", Colors.YELLOW ));
+        super(Colors.setColor(" P ", Colors.YELLOW ));
     }
 
     public CellHero(String name) {
