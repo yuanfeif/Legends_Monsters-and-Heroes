@@ -6,6 +6,6 @@
  */
 public class CellKoulou extends Cell{
     public CellKoulou() {
-        super("   ");
+        super(" K ");
     }
 }

@@ -5,6 +5,6 @@
  */
 public class CellMarket extends Cell{
     public CellMarket() {
-        super(Colors.setColor(" \uD83D\uDED2 ", Colors.PURPLE));
+        super(Colors.setColor(" M ", Colors.PURPLE));
     }
 }

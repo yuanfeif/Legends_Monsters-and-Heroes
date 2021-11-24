@@ -6,6 +6,6 @@
  */
 public class CellHeroNexus extends Cell{
     public CellHeroNexus() {
-        super(Colors.justSetGroundColor("    ", Colors.RED_BG));
+        super(Colors.justSetGroundColor("   ", Colors.RED_BG));
     }
 }

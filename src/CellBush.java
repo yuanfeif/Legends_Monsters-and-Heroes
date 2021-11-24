@@ -6,6 +6,6 @@
  */
 public class CellBush extends Cell{
     public CellBush() {
-            super(Colors.setColor(" \uD83C\uDF33 ", Colors.GREEN));
+            super(Colors.setColor(" B ", Colors.GREEN));
     }
 }
