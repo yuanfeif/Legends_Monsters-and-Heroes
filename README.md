@@ -1,27 +1,26 @@
 # CS611-Legends
 
 Team information
--------------------------------------------------------------------------------------------------
+----------------
 
-| Name | BU id | email|
-| :--- | :--- | :--- |
-| Feifan Yuan| U61632796   | ffyuan@bu.edu |
+
+| Name                                | BU id     | email           |
+| :------------------------------------ | :---------- | :---------------- |
+| Feifan Yuan                         | U61632796 | ffyuan@bu.edu   |
 | Junchen Liu                         | U36314175 | junchenl@bu.edu |
-| BhaskarDurgaVeeraVenkata Ganga Raju | U89625488   | bhaskar9@bu.edu |
+| BhaskarDurgaVeeraVenkata Ganga Raju | U89625488 | bhaskar9@bu.edu |
 
 !!How to run!!:
--------------------------------------------------------------------------------------------------
-> In order to make the game fancy and colorful, we use some unicode when drawing the grid. So you may run the project in IDEA to see the results.
-> 
-> We tested this project in IDEA with JDK 1.8 and file encodeing UTF-8 on a Windows-based machine.
+---------------
 
-1. Open this project in IntelliJ IDEA
-2. Click the "Run" button in Main class to run the project
-3. Make sure you have a JDK installed in your PC with version at least 1.8
-4. If you have problems with running this project, please feel free to contact Feifan Yuan to have a face-to-face presentation.
+1. download this project
+2. move to directory src
+3. run ```javac *.java``` to compile
+4. run ```java Main``` to run the project
+5. Note: make sure you use a Unix-based device to run this game, otherwise the colorful terminal cannot render successfully(for Windows-based machine)
 
 Files
--------------------------------------------------------------------------------------------------
+-----
 
 1. Main
    * Entrance of the project
@@ -46,15 +45,17 @@ Files
 9. PlayMusic
    * use to play the background music
 10. GenericCharacter
-   * represents characters in RPG games
+
+* represents characters in RPG games
+
 11. Hero
     * heroes in Legends
     * inherits from GenericCharacter
 12. HeroPaladin
-    * one type of hero 
+    * one type of hero
     * inherits from Hero
 13. HeroSorcerer
-    * one type of hero 
+    * one type of hero
     * inherits from Hero
 14. HeroWarrior
     * one type of hero
@@ -76,7 +77,7 @@ Files
     * monsters in Legends
     * inherits from GenericCharacter
 21. MonsterDragon
-    * one type of monster 
+    * one type of monster
     * inherits from Monster
 22. MonsterExoskeleton
     * one type of monster
@@ -140,7 +141,7 @@ Files
     * grid for Legends of Valor
     * inherits from Grid
 45. GridPrinter
-    * an interface used to print grid 
+    * an interface used to print grid
     * implemented by Grid
 46. GridFactory
     * a class used to realize simple factory pattern
@@ -178,21 +179,21 @@ Files
     * store some useful color to realize colorful console
 
 Notes:
--------------------------------------------------------------------------------------------------
+------
 
 1. Bonus
+
    * Realize colorful console and use some icons to make the grid more user friendly.
    * Use design patterns
-     * simple factory pattern (class MarketFactory and GridFactory) 
+     * simple factory pattern (class MarketFactory and GridFactory)
      * strategy pattern (class StrategyParsing and Strategy LevelUp)
    * Input is getting parsed from the input files and is not hardcoded
    * There is usage of other extra graphics
    * We add background sound to this game
-
 2. Things to note
 
    In the Legends of Monsters and Heroes
-   
+
    * hp of heroes = level * 1000 (It is easy for a hero to be fainted in only 1 turn because of high damage of a monster)
    * dodge_chance of heroes = 0.001 * agility (controlled between 0.0-1.0 which is same as monsters)
    * If all the heroes are fainted, the game will automatically end.
