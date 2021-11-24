@@ -283,8 +283,10 @@ public class GameLV extends GameRPG{
                 team.get(i).getBag().printBag();
                 --i;
             } // pass
-            else {
-                GamePrintUtil.printSystemNotification("Bye!");
+            else if (choice == 4){
+                break;
+            }
+            else {;
                 if (i == heroNum - 1) {
                     GamePrintUtil.printSystemNotification("Bye!");
                 }
