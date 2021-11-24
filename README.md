@@ -13,14 +13,11 @@ Team information
 !!How to run!!:
 ---------------
 
-> In order to make the game fancy and colorful, we use some unicode when drawing the grid. So you may run the project in IDEA to see the results.
->
-> We tested this project in IDEA with JDK 1.8 and file encodeing UTF-8 on a Windows-based machine.
-
-1. Open this project in IntelliJ IDEA
-2. Click the "Run" button in Main class to run the project
-3. Make sure you have a JDK installed in your PC with version at least 1.8
-4. If you have problems with running this project, please feel free to contact Feifan Yuan to have a face-to-face presentation.
+1. download this project
+2. move to directory src
+3. run ```javac *.java``` to compile
+4. run ```java Main``` to run the project
+5. Note: make sure you use a Unix-based device to run this game, otherwise the colorful terminal cannot render successfully(for Windows-based machine)
 
 Files
 -----
